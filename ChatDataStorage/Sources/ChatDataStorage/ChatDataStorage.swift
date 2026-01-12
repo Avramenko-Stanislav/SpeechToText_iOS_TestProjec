@@ -4,6 +4,9 @@ import CoreData
 
 public protocol ChatDataStorageService: AnyObject, Sendable {
   func fetchAllChats() async throws -> [ChatRow]
+  func fetchChat(chatID: String) async throws -> ChatRow
+  func createChat(title: String?) async throws -> ChatRow
+  func upsertChat(chatID: String?, title: String?, transcript: String) async throws -> ChatRow
 }
 
 public final class ChatDataStorageManager: ChatDataStorageService {
@@ -29,7 +32,110 @@ public final class ChatDataStorageManager: ChatDataStorageService {
       }
     }
   }
-  
+
+  public func fetchChat(chatID: String) async throws -> ChatRow {
+    let id = trimmedNonEmpty(chatID)
+    guard let id else { throw CoreDataRepoError.invalidChatID }
+
+    try await dataStack.ready()
+    let context = makeContext()
+
+    return try await context.perform { [weak self] in
+      guard let self else {
+        throw CoreDataRepoError.storesNotLoaded
+      }
+
+      let request = self.makeFetchRequest(chatID: id)
+      guard let object = try context.fetch(request).first else {
+        throw CoreDataRepoError.chatNotFound(id)
+      }
+
+      guard let row = self.makeRow(from: object, fallbackID: id) else {
+        throw CoreDataRepoError.chatNotFound(id)
+      }
+      return row
+    }
+  }
+
+  public func upsertChat(chatID: String?, title: String?, transcript: String) async throws -> ChatRow {
+    let text = trimmedNonEmpty(transcript)
+
+    guard let text else {
+      throw CoreDataRepoError.textMissing
+    }
+
+    try await dataStack.ready()
+
+    let id = trimmedNonEmpty(chatID) ?? UUID().uuidString
+    let now = Date()
+    let resolvedTitle = normalizedTitle(from: title, fallback: Constants.defaultChatTitle)
+
+
+    let context = makeContext()
+    return try await context.perform { [weak self] in
+      guard let self else {
+        throw CoreDataRepoError.storesNotLoaded
+      }
+
+      let request = self.makeFetchRequest(chatID: id)
+
+      let chat: NSManagedObject
+      if let existing = try context.fetch(request).first {
+        chat = existing
+      } else {
+        chat = NSEntityDescription.insertNewObject(forEntityName: Constants.entityName, into: context)
+        chat.setValue(id, forKey: Key.id)
+      }
+
+      chat.setValue(resolvedTitle, forKey: Key.title)
+      chat.setValue(text, forKey: Key.lastMessagePreview)
+      chat.setValue(now, forKey: Key.updatedAt)
+
+      try context.save()
+
+      return ChatRow(
+        id: id,
+        title: resolvedTitle,
+        lastMessagePreview: text,
+        updatedAt: now
+      )
+    }
+  }
+
+  public func createChat(title: String?) async throws -> ChatRow {
+    try await dataStack.ready()
+
+    let context = makeContext()
+    return try await context.perform { [weak self] in
+      guard let self else {
+        throw CoreDataRepoError.storesNotLoaded
+      }
+
+      let resolvedTitle = normalizedTitle(from: title, fallback: Constants.defaultNewChatTitle)
+      let id = UUID().uuidString
+      let now = Date()
+
+      let object = NSEntityDescription.insertNewObject(forEntityName: Constants.entityName, into: context)
+      object.setValue(id, forKey: Key.id)
+      object.setValue(resolvedTitle, forKey: Key.title)
+      object.setValue(nil, forKey: Key.lastMessagePreview)
+      object.setValue(now, forKey: Key.updatedAt)
+
+      try context.save()
+
+      return ChatRow(id: id, title: resolvedTitle, lastMessagePreview: nil, updatedAt: now)
+    }
+  }
+
+  private func makeFetchRequest(chatID: String) -> NSFetchRequest<NSManagedObject> {
+    let request = NSFetchRequest<NSManagedObject>(entityName: Constants.entityName)
+
+    request.fetchLimit = 1
+    request.predicate = NSPredicate(format: Constants.predicateByIDFormat, Key.id, chatID)
+
+    return request
+  }
+
   private func makeContext() -> NSManagedObjectContext {
     dataStack.container.newBackgroundContext()
   }
@@ -64,6 +170,9 @@ public final class ChatDataStorageManager: ChatDataStorageService {
 private enum Constants {
   static let entityName = "ChatEntity"
   static let defaultChatTitle = "Chat"
+  static let defaultNewChatTitle = "New Chat"
+  static let predicateByIDFormat = "%K == %@"
+
 }
 
 private enum Key {

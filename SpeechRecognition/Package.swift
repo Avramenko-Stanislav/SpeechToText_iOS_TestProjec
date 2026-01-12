@@ -9,12 +9,13 @@ let package = Package(
     products: [
         .library(
             name: "SpeechRecognition",
-            targets: ["SpeechRecognition", "SpeechTranscriber"])
+            targets: ["SpeechRecognition", "SpeechTranscriber", "SpeechServiceKit"])
     ],
     targets: [
         .target(
-            name: "SpeechRecognition"),
-        .target(name: "SpeechTranscriber"),
+            name: "SpeechRecognition", dependencies: ["SpeechServiceKit"]),
+        .target(name: "SpeechTranscriber", dependencies: ["SpeechServiceKit"]),
+        .target(name: "SpeechServiceKit"),
         .testTarget(
             name: "SpeechRecognitionTests",
             dependencies: ["SpeechRecognition"]

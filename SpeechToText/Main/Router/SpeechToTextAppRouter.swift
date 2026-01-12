@@ -12,8 +12,8 @@ import ChatDataStorage
 
 @MainActor
 protocol SpeechToTextAppRouter: AnyObject {
-    func openNewChat()
-    func openChat(chatID: String)
+  func openNewChat()
+  func openChat(chatID: String)
 }
 
 @MainActor
@@ -57,11 +57,26 @@ final class SpeechToTextAppRouterImpl: SpeechToTextAppRouter {
   }
 
   func openNewChat() {
-    // TODO: - will be implement at next PR.
+    pushChatSpeech(with: nil)
   }
 
   func openChat(chatID: String) {
-    // TODO: - will be implement at next PR.
+    pushChatSpeech(with: chatID)
   }
 
+  private func pushChatSpeech(with chatID: String?) {
+    let (_, vc) = ChatSpeechRouterImpl.start(
+      context: .init(
+        chatID: chatID,
+        onCompletion: { [weak self] in
+          self?.navigationController.popViewController(animated: true)
+        },
+        speechTranscriberService: speechTranscriberService,
+        speechPermissionsService: speechPermissionsService,
+        chatStorageService: chatStorageService
+      )
+    )
+
+    navigationController.pushViewController(vc, animated: true)
+  }
 }

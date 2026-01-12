@@ -13,7 +13,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "ChatDataStorage"),
+            name: "ChatDataStorage", dependencies: ["ChatDataKit"]),
         .target(name: "ChatDataKit"),
         .testTarget(
             name: "ChatDataStorageTests",
