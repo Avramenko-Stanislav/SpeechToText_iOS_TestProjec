@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		851DA4D92F1541AE00FA6B4B /* ChatDataStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 851DA4D82F1541AE00FA6B4B /* ChatDataStorage */; };
+		851DA4DB2F1541B500FA6B4B /* SpeechRecognition in Frameworks */ = {isa = PBXBuildFile; productRef = 851DA4DA2F1541B500FA6B4B /* SpeechRecognition */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		851DA4992F15382600FA6B4B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +32,8 @@
 		851DA48B2F15382400FA6B4B /* SpeechToText.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechToText.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		851DA4982F15382600FA6B4B /* SpeechToTextTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeechToTextTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		851DA4A22F15382600FA6B4B /* SpeechToTextUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeechToTextUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		851DA4D22F153E7D00FA6B4B /* SpeechRecognition */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SpeechRecognition; sourceTree = SOURCE_ROOT; };
+		851DA4D32F153EC800FA6B4B /* ChatDataStorage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ChatDataStorage; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				851DA4DB2F1541B500FA6B4B /* SpeechRecognition in Frameworks */,
+				851DA4D92F1541AE00FA6B4B /* ChatDataStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,9 +84,11 @@
 		851DA4822F15382300FA6B4B = {
 			isa = PBXGroup;
 			children = (
+				851DA4D12F153D9700FA6B4B /* Packages */,
 				851DA48D2F15382400FA6B4B /* SpeechToText */,
 				851DA49B2F15382600FA6B4B /* SpeechToTextTests */,
 				851DA4A52F15382600FA6B4B /* SpeechToTextUITests */,
+				851DA4D72F1541AE00FA6B4B /* Frameworks */,
 				851DA48C2F15382400FA6B4B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +101,22 @@
 				851DA4A22F15382600FA6B4B /* SpeechToTextUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		851DA4D12F153D9700FA6B4B /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				851DA4D32F153EC800FA6B4B /* ChatDataStorage */,
+				851DA4D22F153E7D00FA6B4B /* SpeechRecognition */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		851DA4D72F1541AE00FA6B4B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +139,8 @@
 			);
 			name = SpeechToText;
 			packageProductDependencies = (
+				851DA4D82F1541AE00FA6B4B /* ChatDataStorage */,
+				851DA4DA2F1541B500FA6B4B /* SpeechRecognition */,
 			);
 			productName = SpeechToText;
 			productReference = 851DA48B2F15382400FA6B4B /* SpeechToText.app */;
@@ -570,6 +599,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		851DA4D82F1541AE00FA6B4B /* ChatDataStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ChatDataStorage;
+		};
+		851DA4DA2F1541B500FA6B4B /* SpeechRecognition */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpeechRecognition;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 851DA4832F15382300FA6B4B /* Project object */;
 }
