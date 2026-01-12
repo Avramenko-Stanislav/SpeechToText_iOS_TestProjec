@@ -223,10 +223,6 @@ final class ChatSpeechViewModelImpl: ChatSpeechViewModel {
       primaryAction: { [weak self] in
         guard let self else { return }
         Task { await self.requestAccess() }
-      },
-      secondaryTitle: Constants.refreshTitle,
-      secondaryAction: { [weak self] in
-        self?.refreshAccess()
       }
     )
   }
@@ -240,10 +236,6 @@ final class ChatSpeechViewModelImpl: ChatSpeechViewModel {
         guard let self else { return }
         guard canOpenSettings else { return }
         self.pendingURL = URL(string: UIApplication.openSettingsURLString)
-      },
-      secondaryTitle: Constants.refreshTitle,
-      secondaryAction: { [weak self] in
-        self?.refreshAccess()
       }
     )
   }
@@ -255,9 +247,7 @@ final class ChatSpeechViewModelImpl: ChatSpeechViewModel {
       primaryTitle: Constants.refreshTitle,
       primaryAction: { [weak self] in
         self?.refreshAccess()
-      },
-      secondaryTitle: nil,
-      secondaryAction: nil
+      }
     )
   }
 
