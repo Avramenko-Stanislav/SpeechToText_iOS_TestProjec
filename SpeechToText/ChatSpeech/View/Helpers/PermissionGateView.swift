@@ -14,14 +14,11 @@ struct PermissionGateView: View {
     let message: String
     let primaryTitle: String
     let primaryAction: () -> Void
-    let secondaryTitle: String?
-    let secondaryAction: (() -> Void)?
 
     static func == (lhs: Model, rhs: Model) -> Bool {
       lhs.title == rhs.title &&
       lhs.message == rhs.message &&
-      lhs.primaryTitle == rhs.primaryTitle &&
-      lhs.secondaryTitle == rhs.secondaryTitle
+      lhs.primaryTitle == rhs.primaryTitle
     }
   }
 
@@ -45,15 +42,6 @@ struct PermissionGateView: View {
           .frame(maxWidth: .infinity, minHeight: Constants.buttonHeight)
       }
       .buttonStyle(.borderedProminent)
-
-      if let secondaryTitle = model.secondaryTitle,
-         let secondaryAction = model.secondaryAction {
-        Button(action: secondaryAction) {
-          Text(secondaryTitle)
-            .frame(maxWidth: .infinity, minHeight: Constants.buttonHeight)
-        }
-        .buttonStyle(.bordered)
-      }
 
       Spacer()
     }

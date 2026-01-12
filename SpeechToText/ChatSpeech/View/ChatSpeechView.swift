@@ -104,7 +104,11 @@ struct ChatSpeechView<ViewModel: ChatSpeechViewModel>: View {
             .font(.footnote)
             .foregroundStyle(.secondary)
         }
-    }.safeAreaInset(edge: .bottom) {
+    }
+    .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+      viewModel.onAppear()
+    }
+    .safeAreaInset(edge: .bottom) {
       recordButton
     }
   }

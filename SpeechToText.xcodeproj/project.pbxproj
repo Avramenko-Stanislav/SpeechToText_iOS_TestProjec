@@ -36,9 +36,22 @@
 		851DA4D32F153EC800FA6B4B /* ChatDataStorage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ChatDataStorage; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		851DA4FD2F155B2C00FA6B4B /* Exceptions for "SpeechToText" folder in "SpeechToText" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 851DA48A2F15382400FA6B4B /* SpeechToText */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		851DA48D2F15382400FA6B4B /* SpeechToText */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				851DA4FD2F155B2C00FA6B4B /* Exceptions for "SpeechToText" folder in "SpeechToText" target */,
+			);
 			path = SpeechToText;
 			sourceTree = "<group>";
 		};
@@ -431,7 +444,10 @@
 				DEVELOPMENT_TEAM = RWHWP64V9C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SpeechToText/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We use the microphone to record audio and enable voice features, such as voice messages and in-app voice input.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We use speech recognition to convert your voice into text, so you can use voice input and dictation features in the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -464,7 +480,10 @@
 				DEVELOPMENT_TEAM = RWHWP64V9C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SpeechToText/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We use the microphone to record audio and enable voice features, such as voice messages and in-app voice input.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We use speech recognition to convert your voice into text, so you can use voice input and dictation features in the app.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
