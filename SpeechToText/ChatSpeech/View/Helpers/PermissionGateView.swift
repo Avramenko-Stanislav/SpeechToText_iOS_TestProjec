@@ -40,13 +40,19 @@ struct PermissionGateView: View {
         .multilineTextAlignment(.center)
         .foregroundStyle(.secondary)
 
-      Button(model.primaryTitle, action: model.primaryAction)
-        .buttonStyle(.borderedProminent)
+      Button(action: model.primaryAction) {
+        Text(model.primaryTitle)
+          .frame(maxWidth: .infinity, minHeight: Constants.buttonHeight)
+      }
+      .buttonStyle(.borderedProminent)
 
       if let secondaryTitle = model.secondaryTitle,
          let secondaryAction = model.secondaryAction {
-        Button(secondaryTitle, action: secondaryAction)
-          .buttonStyle(.bordered)
+        Button(action: secondaryAction) {
+          Text(secondaryTitle)
+            .frame(maxWidth: .infinity, minHeight: Constants.buttonHeight)
+        }
+        .buttonStyle(.bordered)
       }
 
       Spacer()
@@ -56,6 +62,7 @@ struct PermissionGateView: View {
 }
 
 private enum Constants {
+  static let buttonHeight: CGFloat = 34
   static let spacing = CGFloat(12)
   static let padding = CGFloat(12)
 }

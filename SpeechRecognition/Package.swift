@@ -18,7 +18,7 @@ let package = Package(
         .target(name: "SpeechServiceKit"),
         .testTarget(
             name: "SpeechRecognitionTests",
-            dependencies: ["SpeechRecognition"]
+            dependencies: ["SpeechRecognition", "SpeechServiceKit"]
         ),
     ]
 )
