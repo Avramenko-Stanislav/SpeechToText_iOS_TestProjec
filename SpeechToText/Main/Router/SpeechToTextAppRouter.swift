@@ -43,7 +43,10 @@ final class SpeechToTextAppRouterImpl: SpeechToTextAppRouter {
     navigationController.navigationBar.prefersLargeTitles = true
 
     let router = SpeechToTextAppRouterImpl(context: context)
-    let view = EmptyView()
+    let viewModel = AllChatsViewModelBuilderImpl()
+      .build(router: router, chatStorageService: context.chatStorageService)
+
+    let view = AllChatsView(viewModel: viewModel)
     let rootVC = UIHostingController(rootView: view)
     rootVC.view.backgroundColor = .systemBackground
     rootVC.navigationItem.largeTitleDisplayMode = .automatic

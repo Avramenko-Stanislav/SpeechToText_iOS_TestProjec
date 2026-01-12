@@ -17,7 +17,7 @@ final class SpeechToTextAppContainer {
   let rootViewController: UIViewController
 
   init(
-    repository: ChatDataStorageService = ChatDataStorageManager(),
+    repository: ChatDataStorageService = ChatDataStorageManager(dataStack: CoreDataStack.shared),
     transcriber: SpeechTranscriberService = SpeechTranscriberManager(),
     speechService: SpeechPermissionsService = SpeechPermissionsManager(),
     navigationController: UINavigationController = UINavigationController()

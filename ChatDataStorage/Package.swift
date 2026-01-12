@@ -9,11 +9,12 @@ let package = Package(
     products: [
         .library(
             name: "ChatDataStorage",
-            targets: ["ChatDataStorage"]),
+            targets: ["ChatDataStorage", "ChatDataKit"]),
     ],
     targets: [
         .target(
             name: "ChatDataStorage"),
+        .target(name: "ChatDataKit"),
         .testTarget(
             name: "ChatDataStorageTests",
             dependencies: ["ChatDataStorage"]
